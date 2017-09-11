@@ -10,7 +10,7 @@ private:
 	unsigned long dollars{};
 	unsigned int cents{};
 public:
-	//ÉèÖÃ¹¹Ôìº¯Êı
+	//è®¾ç½®æ„é€ å‡½æ•°
 	Currency(signType theSign, unsigned long theDollars, unsigned int theCents) :
 		sign{ theSign }, dollars{ theDollars }, cents{ theCents } {
 		setValue(theSign, theDollars, theCents);
@@ -26,7 +26,7 @@ public:
 	}
 	Currency() {}
 	~Currency() {}
-	//ÉèÖÃ³ÉÔ±Öµ
+	//è®¾ç½®æˆå‘˜å€¼
 	void setValue(signType theSign, unsigned long theDollars, unsigned int theCents) {
 		sign = theSign;
 		dollars = theDollars;
@@ -48,7 +48,7 @@ public:
 		dollars = static_cast<unsigned long>(theAmount);
 		cents = static_cast<unsigned int>((theAmount + 0.01 - dollars) * 100);
 	}
-	//»ñÈ¡³ÉÔ±Öµ
+	//è·å–æˆå‘˜å€¼
 	signType getSign() {
 		return sign;
 	}
@@ -61,7 +61,7 @@ public:
 	double getAmount() {
 		return amount;
 	}
-	//ÔËËã·ûÖØÔØ += + - * / % << >>
+	//è¿ç®—ç¬¦é‡è½½ += + - * / % << >>
 	Currency& operator+=(const Currency& currency);
 	Currency operator+(const Currency& currency) {
 		return Currency(*this += currency);
