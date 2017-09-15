@@ -1,17 +1,18 @@
 #ifndef CARTON_H
 #define CARTON_H
 #include "Box.h"
-#include <string>
-class Carton : public Box{
-private:
-    std::string name = "Carton";
+class Carton : public Box {
 public:
-    Carton(double lv,double wv,double hv,std::string theName):
-        Box(lv,wv,hv),name{theName} {}
-    Carton(std::string theName):name{theName}{}
-    Carton(){}
-    double volumn() override {
-        return 0.85*length*width*height;
-    }
+	Carton(double lv, double wv, double hv) :Box(lv, wv, hv) {}
+	Carton() {}
+	Carton(const Carton& carton) {
+		length = carton.length;
+		height = carton.height;
+		width = carton.width;
+	}
+	~Carton() { std::cout << "Carton destructor called" << std::endl; }
+	double volumn() const override {
+		return 0.85*length*width*height;
+	}
 };
 #endif

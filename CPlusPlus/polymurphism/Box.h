@@ -1,25 +1,27 @@
 #ifndef BOX_H
 #define BOX_H
 #include <iostream>
-class Box{
+class Box {
 protected:
-    double length = 0;
-    double width = 0;
-    double height = 0;
+	double length{};
+	double width{};
+	double height{};
 public:
-    Box(double theLength,double theWidth,double theHeight):
-        length{theLength},width{theWidth},height{theHeight}{}
-    Box(){}
-    Box(const Box& box){
-        length = box.length;
-        width = box.width;
-        height = box.height;
-    }
-    virtual double volumn(){
-        return length*width*height;
-    }
-    void showVolumn(){
-        std::cout << "the volumn is " << volumn() << std::endl;
-    }
+	Box(double lv, double wv, double hv) :length{ lv }, width{ wv }, height{ hv } {}
+	Box() {}
+	Box(const Box& box) {
+		length = box.length;
+		width = box.width;
+		height = box.height;
+	}
+	~Box() {
+		std::cout << "Box destructor called" << std::endl;
+	}
+	virtual double volumn() const{
+		return length*width*height;
+	}
+	void showVolumn() const{
+		std::cout << "Box volumn is " << volumn() << std::endl;
+	}
 };
 #endif
