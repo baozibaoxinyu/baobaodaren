@@ -1,6 +1,3 @@
-/*
-使用prev_permutation进行排列输出
-*/
 #include <iostream>
 #include <algorithm>
 #include <iterator>
