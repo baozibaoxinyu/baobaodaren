@@ -44,5 +44,9 @@ int main()
 	auto up_name = std::make_unique<string>("Bao");
 	std::unique_ptr<string> up_new_name{ up_name.release() };
 	std::cout << "up new name is " << *up_new_name << std::endl;
+
+	//compare and check unique_ptr<T> object
+	if (up_new_name) std::cout << "the pointer is not nullptr and its value is " << *up_new_name << std::endl;
+	if (!up_name) std::cout << "the pointer is null." << std::endl;
 	return 0;
 }
