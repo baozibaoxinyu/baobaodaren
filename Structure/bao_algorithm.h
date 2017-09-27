@@ -108,18 +108,20 @@ namespace Bao {
 	}
 	//一次冒泡过程
 	template <typename T>
-	void bubble(T a[], int n) {
+	bool bubble(T a[], int n) {
+		bool swaped = false;	//目前还未交换
 		for (int i{1}; i < n; ++i) {
-			if (a[i - 1] > a[i])
-				std::swap(a[i - 1],a[i]);
+			if (a[i - 1] > a[i]) {
+				std::swap(a[i - 1], a[i]);
+				swaped = true;
+			}
 		}
+		return swaped;
 	}
-	//冒泡排序
+	//冒泡排序,如果一次冒泡排序之后swaped的状态为false，说明没有交换，数组有序，可以提前终止排序
 	template <typename T>
 	void bubbleSort(T a[], int n) {
-		for (int i{ n }; i > 1; --i) {
-			bubble(a, i);
-		}
+		for (int i{ n }; i > 1 && bubble(a, i); --i);
 	}
 	//在有序数组中插入一个数，数组还是有序的
 	template <typename T>
@@ -129,6 +131,24 @@ namespace Bao {
 			a[i + 1] = a[i];
 		}
 		a[i + 1] = value;
+	}
+	//插入排序，利用上面的insert
+	template <typename T>
+	void insertSorted(T a[], int n) {
+		for (int i{ 1 }; i < n; ++i)
+			insert(a, i, a[i]);
+	}
+	//另一种插入排序
+	template <typename T>
+	void insertionSort(T a[], int n) {
+		for (int i{ 1 }; i < n; ++i) {
+			T t = a[i];
+			int j;
+			for (j = i - 1; j >= 0 && t < a[j]; --j) {
+				a[j + 1] = a[j];
+			}
+			a[j + 1] = t;
+		}
 	}
 	//原地重排数组元素,思路：
 	//如果r[i]!= i,让a[i]和a[r[i]]互换，同时让r[i]和r[r[i]]进行互换，直到r[i] = i;
@@ -142,5 +162,6 @@ namespace Bao {
 			}
 		}
 	}
+
 }
 #endif
