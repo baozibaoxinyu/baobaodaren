@@ -147,7 +147,7 @@ namespace Bao {
 			for (j = i - 1; j >= 0 && t < a[j]; --j) {
 				a[j + 1] = a[j];
 			}
-			a[j + 1] = t;
+			a[j + 1] = t; 
 		}
 	}
 	//原地重排数组元素,思路：
@@ -162,6 +162,15 @@ namespace Bao {
 			}
 		}
 	}
-
+	//矩阵转置
+	template <typename T>
+	void transpose(T **a, int row) {
+		for (int i{}; i < row; ++i) {
+			for (int j = i + 1; j < row; ++j) {
+				swap(a[i][j], a[j][i]);
+			}
+		}
+	}
+	//矩阵加法
 }
 #endif
