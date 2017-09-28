@@ -172,5 +172,58 @@ namespace Bao {
 		}
 	}
 	//矩阵加法
+	template <typename T>
+	void matrixAdd(T **a, T **b, T **c, int numberOfRows, int numberOfColumns) {
+		for (int i{}; i < numberOfRows; ++i) {
+			for (int j{}; j < numberOfColumns; ++j) {
+				c[i][j] = a[i][j] + b[i][j];
+			}
+		}
+	}
+	//N*N矩阵的乘法
+	template <typename T>
+	void squareMatrixMultiply(T** a, T** b, T** c,int n) {
+		for (int i{}; i < n; ++i) {
+			for (int j{}; j < n; ++j) {
+				T sum = 0;
+				for (int k{}; k < n; ++k) {
+					sum += a[i][k] * b[k][j];
+				}
+				c[i][j] = sum;
+			}
+		}
+	}
+	//M*N矩阵和N*P矩阵的乘法
+	template <typename T>
+	void matrixMultiply(T** a, T **b, T** c, int m, int n, int p) {
+		for (int i{}; i < m; ++i) {
+			T sum = 0;
+			for (int j{}; j < p; ++j) {
+				for (int k{}; k < n; ++k) {
+					sum += a[i][k] * b[k][j];
+				}
+				c[i][j] = sum;
+			}
+		}
+	}
+	//查找最大和最小元素
+	template <typename T>
+	bool minmax(T a[], int n, int& indexOfMax, int& indexOfMin) {
+		if (n < 1) return false;
+		indexOfMax = indexOfMin = 0;
+		for (int i{1}; i < n; ++i) {
+			if (a[indexOfMax] < a[i]) indexOfMax = i;
+			else if (a[indexOfMin] > a[i]) indexOfMin = i;
+		}
+		return true;
+	}
+	//无序数组查找
+	template <typename T>
+	int disorderSequentialSearch(T a[], int n, const T& x) {
+		int i;
+		for (i = 0; a[i] != x; ++i);
+		if (i == n) return -1;
+		return i;
+	}
 }
 #endif
