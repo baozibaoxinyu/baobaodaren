@@ -77,7 +77,7 @@ namespace BXY {
 		void checkIndex(int theIndex) const {
 			if (theIndex < 0 || theIndex >= listSize) {
 				std::ostringstream s;
-				s << "Index = " << theIndex << "but arrayList size = " << listSize;
+				s << "Index = " << theIndex << " but arrayList size = " << listSize;
 				throw illegalIndex(s.str());
 			}
 		}
@@ -98,6 +98,8 @@ namespace BXY {
 		int getCapacity() const override;
 		bool isEmpty() const override;
 		void output(std::ostream& out) const override;
+		void showList() const;
+		arrayList<T>& operator=(const arrayList<T>& thelist);
 		template <typename T>
 		friend std::ostream& operator<<(std::ostream& out, const arrayList<T>& theList);
 	};
@@ -118,8 +120,11 @@ namespace BXY {
 		std::copy(theList, theList + listSize, elements);
 	}
 	template <typename T>
-	arrayList<T>::arrayList(const arrayList<T>& theList) : elements{ theList.elements },
-		listSize{ theList.listSize }, capacity{ theList.capacity }{}
+	arrayList<T>::arrayList(const arrayList<T>& theList) : listSize{ theList.listSize },
+		capacity{ theList.capacity }{
+		elements = new T[capacity];
+		std::copy(theList, theList + listSize, elements);
+	}
 	template <typename T>
 	void arrayList<T>::eraseIndexElement(int theIndex) {
 		checkIndex(theIndex);
@@ -130,7 +135,10 @@ namespace BXY {
 	}
 	template <typename T>
 	void arrayList<T>::eraseAllElement() {
-		if (elements != nullptr) delete[] elements;
+		if (elements != nullptr) {
+			delete[] elements;
+			elements = nullptr;
+		}
 		listSize = 0;
 	}
 	//根据索引进行插入，第三个参数为可选项，缺省值为不排序，可选排序
@@ -183,9 +191,26 @@ namespace BXY {
 		std::copy(elements, elements + listSize, std::ostream_iterator<T>(out, " "));
 	}
 	template <typename T>
+	arrayList<T>& arrayList<T>::operator=(const arrayList<T>& theList) {
+		listSize = theList.listSize;
+		capacity = theList.capacity;
+		elements = new T[theList.capacity];
+		std::copy(theList.elements, theList.elements + theList.listSize, elements);
+		return *this;
+	}
+	template <typename T>
 	std::ostream& operator<<(std::ostream& out, const arrayList<T>& theList) {
 		theList.output(out);
 		return out;
+	}
+	template <typename T>
+	void arrayList<T>::showList() const {
+		if (this->elements != nullptr)
+			std::cout << "The list elements are " << *this << std::endl;
+		else
+			std::cout << "The list elements are null" << std::endl;
+		std::cout << "The list length is " << this->listSize << std::endl;
+		std::cout << "The list capacity is " << this->capacity << std::endl;
 	}
 }
 
